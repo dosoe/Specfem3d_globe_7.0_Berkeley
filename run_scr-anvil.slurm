@@ -10,7 +10,7 @@
 #SBATCH --error job_%j.err
 #SBATCH --output job_%j.log
 #SBATCH --mail-type=all
-#SBATCH --mail-user=utpalkumar@berkeley.edu
+#SBATCH --mail-user=mail@berkeley.edu
 #SBATCH --mail-type=BEGIN,END,ERROR
 
 
