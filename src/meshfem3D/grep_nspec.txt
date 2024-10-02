@@ -1,0 +1,572 @@
+assemble_MPI_central_cube_mesh.f90:33:                                          idoubling_inner_core, NSPEC_INNER_CORE, &
+assemble_MPI_central_cube_mesh.f90:34:                                          ibelm_bottom_inner_core, NSPEC2D_BOTTOM_INNER_CORE,NGLOB_INNER_CORE, &
+assemble_MPI_central_cube_mesh.f90:55:  integer NSPEC_INNER_CORE,NSPEC2D_BOTTOM_INNER_CORE, NGLOB_INNER_CORE
+assemble_MPI_central_cube_mesh.f90:56:  integer, dimension(NGLLX,NGLLY,NGLLZ,NSPEC_INNER_CORE) :: ibool_inner_core
+assemble_MPI_central_cube_mesh.f90:57:  integer, dimension(NSPEC_INNER_CORE) :: idoubling_inner_core
+assemble_MPI_central_cube_mesh.f90:58:  integer, dimension(NSPEC2D_BOTTOM_INNER_CORE) :: ibelm_bottom_inner_core
+assemble_MPI_central_cube_mesh.f90:101:    do ispec2D = 1,NSPEC2D_BOTTOM_INNER_CORE
+assemble_MPI_central_cube_mesh.f90:132:    do ispec = NSPEC_INNER_CORE, 1, -1
+assemble_MPI_central_cube_mesh.f90:218:      do ispec = 1,NSPEC_INNER_CORE
+assemble_MPI_central_cube_mesh.f90:271:    do ispec2D = 1,NSPEC2D_BOTTOM_INNER_CORE
+calc_jacobian.f90:254:  !                     xigll,yigll,NSPEC2DMAX_AB,NGLLA,NGLLB
+calc_jacobian.f90:259:                                jacobian2D,normal,NGLLA,NGLLB,NSPEC2DMAX_AB)
+calc_jacobian.f90:266:  integer::myrank,ispecb,NSPEC2DMAX_AB,NGLLA,NGLLB
+calc_jacobian.f90:274:  real(kind=CUSTOM_REAL),dimension(NGLLA,NGLLB,NSPEC2DMAX_AB)::jacobian2D
+calc_jacobian.f90:275:  real(kind=CUSTOM_REAL),dimension(3,NGLLA,NGLLB,NSPEC2DMAX_AB)::normal
+compute_volumes_and_areas.f90:30:                            NSPEC2D_BOTTOM,jacobian2D_bottom,NSPEC2D_TOP,jacobian2D_top,idoubling, &
+compute_volumes_and_areas.f90:52:  integer :: NSPEC2D_BOTTOM,NSPEC2D_TOP
+compute_volumes_and_areas.f90:53:  real(kind=CUSTOM_REAL), dimension(NGLLX,NGLLY,NSPEC2D_BOTTOM) :: jacobian2D_bottom
+compute_volumes_and_areas.f90:54:  real(kind=CUSTOM_REAL), dimension(NGLLX,NGLLY,NSPEC2D_TOP) :: jacobian2D_top
+compute_volumes_and_areas.f90:103:  do ispec = 1,NSPEC2D_BOTTOM
+compute_volumes_and_areas.f90:113:  do ispec = 1,NSPEC2D_TOP
+create_central_cube_buffers.f90:34:                   NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+create_central_cube_buffers.f90:35:                   NSPEC2DMAX_XMIN_XMAX_INNER_CORE,NSPEC2DMAX_YMIN_YMAX_INNER_CORE, &
+create_central_cube_buffers.f90:36:                   NSPEC2D_BOTTOM_INNER_CORE, &
+create_central_cube_buffers.f90:52:       NPROC_XI,NPROC_ETA,NCHUNKS,NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+create_central_cube_buffers.f90:53:       NSPEC2DMAX_XMIN_XMAX_INNER_CORE,NSPEC2DMAX_YMIN_YMAX_INNER_CORE,NSPEC2D_BOTTOM_INNER_CORE
+create_central_cube_buffers.f90:59:  integer, dimension(NGLLX,NGLLY,NGLLZ,NSPEC_INNER_CORE), intent(in) :: ibool_inner_core
+create_central_cube_buffers.f90:62:  integer, dimension(NSPEC_INNER_CORE), intent(in) :: idoubling_inner_core
+create_central_cube_buffers.f90:68:  integer, dimension(NSPEC2DMAX_XMIN_XMAX_INNER_CORE), intent(in) :: ibelm_xmin_inner_core,ibelm_xmax_inner_core
+create_central_cube_buffers.f90:69:  integer, dimension(NSPEC2DMAX_YMIN_YMAX_INNER_CORE), intent(in) :: ibelm_ymin_inner_core,ibelm_ymax_inner_core
+create_central_cube_buffers.f90:70:  integer, dimension(NSPEC2D_BOTTOM_INNER_CORE), intent(in) :: ibelm_bottom_inner_core
+create_central_cube_buffers.f90:291:    do ispec2D = 1,NSPEC2D_BOTTOM_INNER_CORE
+create_central_cube_buffers.f90:324:    do ispec = NSPEC_INNER_CORE, 1, -1
+create_central_cube_buffers.f90:466:      do ispec = 1,NSPEC_INNER_CORE
+create_central_cube_buffers.f90:511:          do ispec = 1,NSPEC_INNER_CORE
+create_central_cube_buffers.f90:546:  subroutine comp_central_cube_buffer_size(iproc_xi,iproc_eta,ichunk,NPROC_XI,NPROC_ETA,NSPEC2D_BOTTOM_INNER_CORE, &
+create_central_cube_buffers.f90:556:  integer, intent(in) :: iproc_xi,iproc_eta,ichunk,NPROC_XI,NPROC_ETA,NSPEC2D_BOTTOM_INNER_CORE
+create_central_cube_buffers.f90:617:  npoin2D_cube_from_slices = NSPEC2D_BOTTOM_INNER_CORE * NGLLX * NGLLY
+create_doubling_elements.f90:46:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_doubling_elements.f90:128:  integer NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho
+create_doubling_elements.f90:129:  integer ibelm_moho_top(NSPEC2D_MOHO),ibelm_moho_bot(NSPEC2D_MOHO)
+create_doubling_elements.f90:130:  integer ibelm_400_top(NSPEC2D_400),ibelm_400_bot(NSPEC2D_400)
+create_doubling_elements.f90:131:  integer ibelm_670_top(NSPEC2D_670),ibelm_670_bot(NSPEC2D_670)
+create_doubling_elements.f90:132:  real(kind=CUSTOM_REAL) normal_moho(NDIM,NGLLX,NGLLY,NSPEC2D_MOHO)
+create_doubling_elements.f90:133:  real(kind=CUSTOM_REAL) normal_400(NDIM,NGLLX,NGLLY,NSPEC2D_400)
+create_doubling_elements.f90:134:  real(kind=CUSTOM_REAL) normal_670(NDIM,NGLLX,NGLLY,NSPEC2D_670)
+create_doubling_elements.f90:135:  real(kind=CUSTOM_REAL) jacobian2D_moho(NGLLX,NGLLY,NSPEC2D_MOHO)
+create_doubling_elements.f90:136:  real(kind=CUSTOM_REAL) jacobian2D_400(NGLLX,NGLLY,NSPEC2D_400)
+create_doubling_elements.f90:137:  real(kind=CUSTOM_REAL) jacobian2D_670(NGLLX,NGLLY,NSPEC2D_670)
+create_doubling_elements.f90:152:  integer, dimension(NGNOD_EIGHT_CORNERS,NSPEC_DOUBLING_SUPERBRICK) :: ibool_superbrick
+create_doubling_elements.f90:156:  logical, dimension(NSPEC_DOUBLING_SUPERBRICK,6) :: iboun_sb
+create_doubling_elements.f90:169:    nspec_sb = NSPEC_SUPERBRICK_1L
+create_doubling_elements.f90:175:      nspec_sb = NSPEC_DOUBLING_BASICBRICK
+create_doubling_elements.f90:179:      nspec_sb = NSPEC_DOUBLING_SUPERBRICK
+create_doubling_elements.f90:346:              NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,r_moho,r_400,r_670, &
+create_mass_matrices.f90:30:                                  NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_mass_matrices.f90:74:  integer :: NSPEC2D_TOP,NSPEC2D_BOTTOM
+create_mass_matrices.f90:183:    call create_mass_matrices_Stacey(nspec,ibool,iregion_code,NSPEC2D_BOTTOM)
+create_mass_matrices.f90:211:    call create_mass_matrices_ocean_load(nspec,ibool,xstore,ystore,zstore,NSPEC2D_TOP)
+create_mass_matrices.f90:347:                                        NSPEC2D_BOTTOM)
+create_mass_matrices.f90:380:  integer :: NSPEC2D_BOTTOM
+create_mass_matrices.f90:752:    do ispec2D=1,NSPEC2D_BOTTOM
+create_mass_matrices.f90:788:  subroutine create_mass_matrices_ocean_load(nspec,ibool,xstore,ystore,zstore,NSPEC2D_TOP)
+create_mass_matrices.f90:813:  integer :: NSPEC2D_TOP
+create_mass_matrices.f90:852:  do ispec2D = 1,NSPEC2D_TOP
+create_meshes.f90:78:    npointot = NSPEC(iregion_code) * NGLLX * NGLLY * NGLLZ
+create_meshes.f90:80:    print*, "[create_meshes]", iregion_code, NSPEC(iregion_code), npointot
+create_meshes.f90:83:    allocate(idoubling(NSPEC(iregion_code)), &
+create_meshes.f90:84:            ibool(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90:85:            xstore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90:86:            ystore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90:87:            zstore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90:92:    allocate(is_on_a_slice_edge(NSPEC(iregion_code)), &
+create_meshes.f90:101:                          NSPEC(iregion_code),NGLOB(iregion_code),npointot, &
+create_meshes.f90:103:                          NSPEC2DMAX_XMIN_XMAX(iregion_code),NSPEC2DMAX_YMIN_YMAX(iregion_code), &
+create_meshes.f90:104:                          NSPEC2D_BOTTOM(iregion_code),NSPEC2D_TOP(iregion_code), &
+create_meshes.f90~:78:    npointot = NSPEC(iregion_code) * NGLLX * NGLLY * NGLLZ
+create_meshes.f90~:81:    allocate(idoubling(NSPEC(iregion_code)), &
+create_meshes.f90~:82:            ibool(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90~:83:            xstore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90~:84:            ystore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90~:85:            zstore(NGLLX,NGLLY,NGLLZ,NSPEC(iregion_code)), &
+create_meshes.f90~:90:    allocate(is_on_a_slice_edge(NSPEC(iregion_code)), &
+create_meshes.f90~:99:                          NSPEC(iregion_code),NGLOB(iregion_code),npointot, &
+create_meshes.f90~:101:                          NSPEC2DMAX_XMIN_XMAX(iregion_code),NSPEC2DMAX_YMIN_YMAX(iregion_code), &
+create_meshes.f90~:102:                          NSPEC2D_BOTTOM(iregion_code),NSPEC2D_TOP(iregion_code), &
+create_MPI_interfaces.f90:53:    NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_MPI_interfaces.f90:54:    NSPEC2D_BOTTOM,NSPEC2D_TOP,NSPEC,NGLOB, &
+create_MPI_interfaces.f90:76:  NSPEC_CRUST_MANTLE = 0
+create_MPI_interfaces.f90:79:  NSPEC_OUTER_CORE = 0
+create_MPI_interfaces.f90:82:  NSPEC_INNER_CORE = 0
+create_MPI_interfaces.f90:90:    NSPEC2DMAX_XMIN_XMAX_CM = NSPEC2DMAX_XMIN_XMAX(IREGION_CRUST_MANTLE)
+create_MPI_interfaces.f90:91:    NSPEC2DMAX_YMIN_YMAX_CM = NSPEC2DMAX_YMIN_YMAX(IREGION_CRUST_MANTLE)
+create_MPI_interfaces.f90:92:    NSPEC2D_BOTTOM_CM = NSPEC2D_BOTTOM(IREGION_CRUST_MANTLE)
+create_MPI_interfaces.f90:93:    NSPEC2D_TOP_CM = NSPEC2D_TOP(IREGION_CRUST_MANTLE)
+create_MPI_interfaces.f90:95:    NSPEC_CRUST_MANTLE = NSPEC(IREGION_CRUST_MANTLE)
+create_MPI_interfaces.f90:102:    NSPEC2DMAX_XMIN_XMAX_OC = NSPEC2DMAX_XMIN_XMAX(IREGION_OUTER_CORE)
+create_MPI_interfaces.f90:103:    NSPEC2DMAX_YMIN_YMAX_OC = NSPEC2DMAX_YMIN_YMAX(IREGION_OUTER_CORE)
+create_MPI_interfaces.f90:104:    NSPEC2D_BOTTOM_OC = NSPEC2D_BOTTOM(IREGION_OUTER_CORE)
+create_MPI_interfaces.f90:105:    NSPEC2D_TOP_OC = NSPEC2D_TOP(IREGION_OUTER_CORE)
+create_MPI_interfaces.f90:107:    NSPEC_OUTER_CORE = NSPEC(IREGION_OUTER_CORE)
+create_MPI_interfaces.f90:114:    NSPEC2DMAX_XMIN_XMAX_IC = NSPEC2DMAX_XMIN_XMAX(IREGION_INNER_CORE)
+create_MPI_interfaces.f90:115:    NSPEC2DMAX_YMIN_YMAX_IC = NSPEC2DMAX_YMIN_YMAX(IREGION_INNER_CORE)
+create_MPI_interfaces.f90:116:    NSPEC2D_BOTTOM_IC = NSPEC2D_BOTTOM(IREGION_INNER_CORE)
+create_MPI_interfaces.f90:117:    NSPEC2D_TOP_IC = NSPEC2D_TOP(IREGION_INNER_CORE)
+create_MPI_interfaces.f90:119:    NSPEC_INNER_CORE = NSPEC(IREGION_INNER_CORE)
+create_MPI_interfaces.f90:214:    call cmi_read_solver_data(NSPEC_CRUST_MANTLE,NGLOB_CRUST_MANTLE, &
+create_MPI_interfaces.f90:225:    call cmi_read_solver_data(NSPEC_OUTER_CORE,NGLOB_OUTER_CORE, &
+create_MPI_interfaces.f90:236:    call cmi_read_solver_data(NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+create_MPI_interfaces.f90:259:    NGLOB1D_RADIAL,NSPEC2D_BOTTOM, &
+create_MPI_interfaces.f90:260:    NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_MPI_interfaces.f90:326:            NSPEC_CRUST_MANTLE,NGLOB_CRUST_MANTLE,NGLOB2DMAX_XMIN_XMAX_CM,NGLOB2DMAX_YMIN_YMAX_CM)
+create_MPI_interfaces.f90:331:      call write_VTK_data_elem_l(NSPEC_CRUST_MANTLE,NGLOB_CRUST_MANTLE, &
+create_MPI_interfaces.f90:372:            NSPEC_OUTER_CORE,NGLOB_OUTER_CORE,NGLOB2DMAX_XMIN_XMAX_OC,NGLOB2DMAX_YMIN_YMAX_OC)
+create_MPI_interfaces.f90:377:      call write_VTK_data_elem_l(NSPEC_OUTER_CORE,NGLOB_OUTER_CORE, &
+create_MPI_interfaces.f90:415:      allocate(ibelm_xmin_inner_core(NSPEC2DMAX_XMIN_XMAX_IC), &
+create_MPI_interfaces.f90:416:              ibelm_xmax_inner_core(NSPEC2DMAX_XMIN_XMAX_IC), &
+create_MPI_interfaces.f90:417:              ibelm_ymin_inner_core(NSPEC2DMAX_YMIN_YMAX_IC), &
+create_MPI_interfaces.f90:418:              ibelm_ymax_inner_core(NSPEC2DMAX_YMIN_YMAX_IC), &
+create_MPI_interfaces.f90:419:              ibelm_top_inner_core(NSPEC2D_TOP_IC), &
+create_MPI_interfaces.f90:420:              ibelm_bottom_inner_core(NSPEC2D_BOTTOM_IC), &
+create_MPI_interfaces.f90:439:                  NPROC_XI,NPROC_ETA,NSPEC2D_BOTTOM(IREGION_INNER_CORE), &
+create_MPI_interfaces.f90:461:                 NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+create_MPI_interfaces.f90:462:                 NSPEC2DMAX_XMIN_XMAX(IREGION_INNER_CORE),NSPEC2DMAX_YMIN_YMAX(IREGION_INNER_CORE), &
+create_MPI_interfaces.f90:463:                 NSPEC2D_BOTTOM(IREGION_INNER_CORE), &
+create_MPI_interfaces.f90:506:            NSPEC_INNER_CORE,NGLOB_INNER_CORE,NGLOB2DMAX_XMIN_XMAX_IC,NGLOB2DMAX_YMIN_YMAX_IC)
+create_MPI_interfaces.f90:511:           ibool,NSPEC_INNER_CORE,NGLOB_INNER_CORE,nb_msgs_theor_in_cube,ibelm_bottom_inner_core, &
+create_MPI_interfaces.f90:513:           ibool_central_cube,NSPEC2D_BOTTOM(IREGION_INNER_CORE), &
+create_MPI_interfaces.f90:520:      call write_VTK_data_elem_l(NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+create_regions_mesh.F90:31:                          NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90:32:                          NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+create_regions_mesh.F90:93:  integer :: NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX
+create_regions_mesh.F90:94:  integer :: NSPEC2D_BOTTOM,NSPEC2D_TOP
+create_regions_mesh.F90:130:                          NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90:131:                          NSPEC2D_BOTTOM,NSPEC2D_TOP)
+create_regions_mesh.F90:181:                      njmin,njmax, nkmin_xi,nkmin_eta, NSPEC2DMAX_XMIN_XMAX, &
+create_regions_mesh.F90:182:                      NSPEC2DMAX_YMIN_YMAX, NSPEC2D_BOTTOM)
+create_regions_mesh.F90:204:                                 NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+create_regions_mesh.F90:205:                                 NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,&
+create_regions_mesh.F90:351:                              NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90:370:                                      NSPEC2DMAX_XMIN_XMAX, NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90:371:                                      NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90:375:                                NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90:413:                            NSPEC2D_BOTTOM,jacobian2D_bottom,NSPEC2D_TOP,jacobian2D_top,idoubling, &
+create_regions_mesh.F90:495:                                NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90:496:                                NSPEC2D_BOTTOM,NSPEC2D_TOP)
+create_regions_mesh.F90:518:  integer,intent(in) :: NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX
+create_regions_mesh.F90:519:  integer,intent(in) :: NSPEC2D_BOTTOM,NSPEC2D_TOP
+create_regions_mesh.F90:618:  allocate(ibelm_xmin(NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:619:           ibelm_xmax(NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:620:           ibelm_ymin(NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:621:           ibelm_ymax(NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:622:           ibelm_bottom(NSPEC2D_BOTTOM), &
+create_regions_mesh.F90:623:           ibelm_top(NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90:631:  allocate(jacobian2D_xmin(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:632:           jacobian2D_xmax(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:633:           jacobian2D_ymin(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:634:           jacobian2D_ymax(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:635:           jacobian2D_bottom(NGLLX,NGLLY,NSPEC2D_BOTTOM), &
+create_regions_mesh.F90:636:           jacobian2D_top(NGLLX,NGLLY,NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90:643:  allocate(normal_xmin(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:644:           normal_xmax(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:645:           normal_ymin(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:646:           normal_ymax(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:647:           normal_bottom(NDIM,NGLLX,NGLLY,NSPEC2D_BOTTOM), &
+create_regions_mesh.F90:648:           normal_top(NDIM,NGLLX,NGLLY,NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90:658:      allocate(nimin(2,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:659:               nimax(2,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90:660:               njmin(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:661:               njmax(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:662:               nkmin_xi(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90:663:               nkmin_eta(2,NSPEC2DMAX_YMIN_YMAX),stat=ier)
+create_regions_mesh.F90:761:    NSPEC2D_MOHO = NSPEC2D_TOP
+create_regions_mesh.F90:762:    NSPEC2D_400 = NSPEC2D_MOHO / 4
+create_regions_mesh.F90:763:    NSPEC2D_670 = NSPEC2D_400
+create_regions_mesh.F90:765:    NSPEC2D_MOHO = 1
+create_regions_mesh.F90:766:    NSPEC2D_400 = 1
+create_regions_mesh.F90:767:    NSPEC2D_670 = 1
+create_regions_mesh.F90:769:  allocate(ibelm_moho_top(NSPEC2D_MOHO),ibelm_moho_bot(NSPEC2D_MOHO), &
+create_regions_mesh.F90:770:           ibelm_400_top(NSPEC2D_400),ibelm_400_bot(NSPEC2D_400), &
+create_regions_mesh.F90:771:           ibelm_670_top(NSPEC2D_670),ibelm_670_bot(NSPEC2D_670), &
+create_regions_mesh.F90:772:           normal_moho(NDIM,NGLLX,NGLLY,NSPEC2D_MOHO), &
+create_regions_mesh.F90:773:           normal_400(NDIM,NGLLX,NGLLY,NSPEC2D_400), &
+create_regions_mesh.F90:774:           normal_670(NDIM,NGLLX,NGLLY,NSPEC2D_670), &
+create_regions_mesh.F90:775:           jacobian2D_moho(NGLLX,NGLLY,NSPEC2D_MOHO), &
+create_regions_mesh.F90:776:           jacobian2D_400(NGLLX,NGLLY,NSPEC2D_400), &
+create_regions_mesh.F90:777:           jacobian2D_670(NGLLX,NGLLY,NSPEC2D_670),stat=ier)
+create_regions_mesh.F90:995:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_regions_mesh.F90:1023:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_regions_mesh.F90:1217:    NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER, &
+create_regions_mesh.F90:1218:    NSPEC2D_XI_FACE,NSPEC2D_ETA_FACE, &
+create_regions_mesh.F90:1252:                  NSPEC2D_ETA_FACE,iregion_code,npoin2D_xi, &
+create_regions_mesh.F90:1258:                  NSPEC2D_XI_FACE,iregion_code,npoin2D_eta, &
+create_regions_mesh.F90:1265:                  NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER,iregion_code, &
+create_regions_mesh.F90~:31:                          NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90~:32:                          NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+create_regions_mesh.F90~:93:  integer :: NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX
+create_regions_mesh.F90~:94:  integer :: NSPEC2D_BOTTOM,NSPEC2D_TOP
+create_regions_mesh.F90~:130:                          NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90~:131:                          NSPEC2D_BOTTOM,NSPEC2D_TOP)
+create_regions_mesh.F90~:181:                      njmin,njmax, nkmin_xi,nkmin_eta, NSPEC2DMAX_XMIN_XMAX, &
+create_regions_mesh.F90~:182:                      NSPEC2DMAX_YMIN_YMAX, NSPEC2D_BOTTOM)
+create_regions_mesh.F90~:204:                                 NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+create_regions_mesh.F90~:205:                                 NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,&
+create_regions_mesh.F90~:351:                              NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90~:370:                                      NSPEC2DMAX_XMIN_XMAX, NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90~:371:                                      NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90~:375:                                NSPEC2D_TOP,NSPEC2D_BOTTOM)
+create_regions_mesh.F90~:413:                            NSPEC2D_BOTTOM,jacobian2D_bottom,NSPEC2D_TOP,jacobian2D_top,idoubling, &
+create_regions_mesh.F90~:495:                                NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX, &
+create_regions_mesh.F90~:496:                                NSPEC2D_BOTTOM,NSPEC2D_TOP)
+create_regions_mesh.F90~:518:  integer,intent(in) :: NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX
+create_regions_mesh.F90~:519:  integer,intent(in) :: NSPEC2D_BOTTOM,NSPEC2D_TOP
+create_regions_mesh.F90~:618:  allocate(ibelm_xmin(NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:619:           ibelm_xmax(NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:620:           ibelm_ymin(NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:621:           ibelm_ymax(NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:622:           ibelm_bottom(NSPEC2D_BOTTOM), &
+create_regions_mesh.F90~:623:           ibelm_top(NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90~:631:  allocate(jacobian2D_xmin(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:632:           jacobian2D_xmax(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:633:           jacobian2D_ymin(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:634:           jacobian2D_ymax(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:635:           jacobian2D_bottom(NGLLX,NGLLY,NSPEC2D_BOTTOM), &
+create_regions_mesh.F90~:636:           jacobian2D_top(NGLLX,NGLLY,NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90~:643:  allocate(normal_xmin(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:644:           normal_xmax(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:645:           normal_ymin(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:646:           normal_ymax(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:647:           normal_bottom(NDIM,NGLLX,NGLLY,NSPEC2D_BOTTOM), &
+create_regions_mesh.F90~:648:           normal_top(NDIM,NGLLX,NGLLY,NSPEC2D_TOP),stat=ier)
+create_regions_mesh.F90~:658:      allocate(nimin(2,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:659:               nimax(2,NSPEC2DMAX_YMIN_YMAX), &
+create_regions_mesh.F90~:660:               njmin(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:661:               njmax(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:662:               nkmin_xi(2,NSPEC2DMAX_XMIN_XMAX), &
+create_regions_mesh.F90~:663:               nkmin_eta(2,NSPEC2DMAX_YMIN_YMAX),stat=ier)
+create_regions_mesh.F90~:761:    NSPEC2D_MOHO = NSPEC2D_TOP
+create_regions_mesh.F90~:762:    NSPEC2D_400 = NSPEC2D_MOHO / 4
+create_regions_mesh.F90~:763:    NSPEC2D_670 = NSPEC2D_400
+create_regions_mesh.F90~:765:    NSPEC2D_MOHO = 1
+create_regions_mesh.F90~:766:    NSPEC2D_400 = 1
+create_regions_mesh.F90~:767:    NSPEC2D_670 = 1
+create_regions_mesh.F90~:769:  allocate(ibelm_moho_top(NSPEC2D_MOHO),ibelm_moho_bot(NSPEC2D_MOHO), &
+create_regions_mesh.F90~:770:           ibelm_400_top(NSPEC2D_400),ibelm_400_bot(NSPEC2D_400), &
+create_regions_mesh.F90~:771:           ibelm_670_top(NSPEC2D_670),ibelm_670_bot(NSPEC2D_670), &
+create_regions_mesh.F90~:772:           normal_moho(NDIM,NGLLX,NGLLY,NSPEC2D_MOHO), &
+create_regions_mesh.F90~:773:           normal_400(NDIM,NGLLX,NGLLY,NSPEC2D_400), &
+create_regions_mesh.F90~:774:           normal_670(NDIM,NGLLX,NGLLY,NSPEC2D_670), &
+create_regions_mesh.F90~:775:           jacobian2D_moho(NGLLX,NGLLY,NSPEC2D_MOHO), &
+create_regions_mesh.F90~:776:           jacobian2D_400(NGLLX,NGLLY,NSPEC2D_400), &
+create_regions_mesh.F90~:777:           jacobian2D_670(NGLLX,NGLLY,NSPEC2D_670),stat=ier)
+create_regions_mesh.F90~:995:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_regions_mesh.F90~:1023:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_regions_mesh.F90~:1215:    NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER, &
+create_regions_mesh.F90~:1216:    NSPEC2D_XI_FACE,NSPEC2D_ETA_FACE, &
+create_regions_mesh.F90~:1250:                  NSPEC2D_ETA_FACE,iregion_code,npoin2D_xi, &
+create_regions_mesh.F90~:1256:                  NSPEC2D_XI_FACE,iregion_code,npoin2D_eta, &
+create_regions_mesh.F90~:1263:                  NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER,iregion_code, &
+create_regular_elements.f90:48:                    NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho, &
+create_regular_elements.f90:135:  integer NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho
+create_regular_elements.f90:136:  integer ibelm_moho_top(NSPEC2D_MOHO),ibelm_moho_bot(NSPEC2D_MOHO)
+create_regular_elements.f90:137:  integer ibelm_400_top(NSPEC2D_400),ibelm_400_bot(NSPEC2D_400)
+create_regular_elements.f90:138:  integer ibelm_670_top(NSPEC2D_670),ibelm_670_bot(NSPEC2D_670)
+create_regular_elements.f90:139:  real(kind=CUSTOM_REAL) normal_moho(NDIM,NGLLX,NGLLY,NSPEC2D_MOHO)
+create_regular_elements.f90:140:  real(kind=CUSTOM_REAL) normal_400(NDIM,NGLLX,NGLLY,NSPEC2D_400)
+create_regular_elements.f90:141:  real(kind=CUSTOM_REAL) normal_670(NDIM,NGLLX,NGLLY,NSPEC2D_670)
+create_regular_elements.f90:142:  real(kind=CUSTOM_REAL) jacobian2D_moho(NGLLX,NGLLY,NSPEC2D_MOHO)
+create_regular_elements.f90:143:  real(kind=CUSTOM_REAL) jacobian2D_400(NGLLX,NGLLY,NSPEC2D_400)
+create_regular_elements.f90:144:  real(kind=CUSTOM_REAL) jacobian2D_670(NGLLX,NGLLY,NSPEC2D_670)
+create_regular_elements.f90:265:                   NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,r_moho,r_400,r_670, &
+define_superbrick.f90:37:  integer, dimension(NGNOD_EIGHT_CORNERS,NSPEC_DOUBLING_SUPERBRICK) :: ibool_superbrick
+define_superbrick.f90:39:  logical, dimension(NSPEC_DOUBLING_SUPERBRICK,6) :: iboun_sb
+define_superbrick.f90:665:  integer, dimension(NGNOD_EIGHT_CORNERS,NSPEC_DOUBLING_SUPERBRICK) :: ibool_superbrick
+define_superbrick.f90:667:  logical, dimension(NSPEC_DOUBLING_SUPERBRICK,6) :: iboun_sb
+define_superbrick.f90:1211:  integer, dimension(NGNOD_EIGHT_CORNERS,NSPEC_DOUBLING_SUPERBRICK) :: ibool_superbrick
+define_superbrick.f90:1213:  logical, dimension(NSPEC_DOUBLING_SUPERBRICK,6) :: iboun_sb
+finalize_mesher.f90:109:    numelem_crust_mantle = NSPEC(IREGION_CRUST_MANTLE)
+finalize_mesher.f90:110:    numelem_outer_core = NSPEC(IREGION_OUTER_CORE)
+finalize_mesher.f90:111:    numelem_inner_core = NSPEC(IREGION_INNER_CORE)
+finalize_mesher.f90:155:                     NSPEC,NGLOB, &
+finalize_mesher.f90:156:                     NSPECMAX_ANISO_IC,NSPECMAX_ISO_MANTLE,NSPECMAX_TISO_MANTLE, &
+finalize_mesher.f90:157:                     NSPECMAX_ANISO_MANTLE,NSPEC_CRUST_MANTLE_ATTENUATION, &
+finalize_mesher.f90:158:                     NSPEC_INNER_CORE_ATTENUATION, &
+finalize_mesher.f90:159:                     NSPEC_CRUST_MANTLE_STR_OR_ATT,NSPEC_INNER_CORE_STR_OR_ATT, &
+finalize_mesher.f90:160:                     NSPEC_CRUST_MANTLE_STR_AND_ATT,NSPEC_INNER_CORE_STR_AND_ATT, &
+finalize_mesher.f90:161:                     NSPEC_CRUST_MANTLE_STRAIN_ONLY,NSPEC_INNER_CORE_STRAIN_ONLY, &
+finalize_mesher.f90:162:                     NSPEC_CRUST_MANTLE_ADJOINT, &
+finalize_mesher.f90:163:                     NSPEC_OUTER_CORE_ADJOINT,NSPEC_INNER_CORE_ADJOINT, &
+finalize_mesher.f90:165:                     NGLOB_INNER_CORE_ADJOINT,NSPEC_OUTER_CORE_ROT_ADJOINT, &
+finalize_mesher.f90:166:                     NSPEC_CRUST_MANTLE_STACEY,NSPEC_OUTER_CORE_STACEY, &
+finalize_mesher.f90:167:                     NGLOB_CRUST_MANTLE_OCEANS,NSPEC_OUTER_CORE_ROTATION, &
+finalize_mesher.f90:168:                     NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+finalize_mesher.f90:172:    call save_header_file(NSPEC,NGLOB,NPROC,NPROCTOT, &
+finalize_mesher.f90:175:                          NSPEC2D_TOP,NSPEC2D_BOTTOM, &
+finalize_mesher.f90:176:                          NSPEC2DMAX_YMIN_YMAX,NSPEC2DMAX_XMIN_XMAX, &
+finalize_mesher.f90:177:                          NSPECMAX_ANISO_IC,NSPECMAX_ISO_MANTLE,NSPECMAX_TISO_MANTLE, &
+finalize_mesher.f90:178:                          NSPECMAX_ANISO_MANTLE,NSPEC_CRUST_MANTLE_ATTENUATION, &
+finalize_mesher.f90:179:                          NSPEC_INNER_CORE_ATTENUATION, &
+finalize_mesher.f90:180:                          NSPEC_CRUST_MANTLE_STR_OR_ATT,NSPEC_INNER_CORE_STR_OR_ATT, &
+finalize_mesher.f90:181:                          NSPEC_CRUST_MANTLE_STR_AND_ATT,NSPEC_INNER_CORE_STR_AND_ATT, &
+finalize_mesher.f90:182:                          NSPEC_CRUST_MANTLE_STRAIN_ONLY,NSPEC_INNER_CORE_STRAIN_ONLY, &
+finalize_mesher.f90:183:                          NSPEC_CRUST_MANTLE_ADJOINT, &
+finalize_mesher.f90:184:                          NSPEC_OUTER_CORE_ADJOINT,NSPEC_INNER_CORE_ADJOINT, &
+finalize_mesher.f90:186:                          NGLOB_INNER_CORE_ADJOINT,NSPEC_OUTER_CORE_ROT_ADJOINT, &
+finalize_mesher.f90:187:                          NSPEC_CRUST_MANTLE_STACEY,NSPEC_OUTER_CORE_STACEY, &
+finalize_mesher.f90:188:                          NGLOB_CRUST_MANTLE_OCEANS,NSPEC_OUTER_CORE_ROTATION )
+fix_non_blocking_flags.f90:106:                                           ibool_central_cube,NSPEC2D_BOTTOM_INNER_CORE, &
+fix_non_blocking_flags.f90:113:  integer :: nspec,nglob,nb_msgs_theor_in_cube,NSPEC2D_BOTTOM_INNER_CORE
+fix_non_blocking_flags.f90:122:  integer, dimension(NSPEC2D_BOTTOM_INNER_CORE) :: ibelm_bottom_inner_core
+fix_non_blocking_flags.f90:131:    do ispec2D = 1,NSPEC2D_BOTTOM_INNER_CORE
+get_absorb.f90:30:                        NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,NSPEC2D_BOTTOM)
+get_absorb.f90:41:  integer :: NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,NSPEC2D_BOTTOM
+get_absorb.f90:43:  integer,dimension(2,NSPEC2DMAX_YMIN_YMAX) :: nimin,nimax
+get_absorb.f90:44:  integer,dimension(2,NSPEC2DMAX_XMIN_XMAX) :: njmin,njmax
+get_absorb.f90:45:  integer,dimension(2,NSPEC2DMAX_XMIN_XMAX) :: nkmin_xi
+get_absorb.f90:46:  integer,dimension(2,NSPEC2DMAX_YMIN_YMAX) :: nkmin_eta
+get_absorb.f90:134:  if(ispecb5 /= NSPEC2D_BOTTOM) &
+get_absorb.f90:135:    call exit_MPI(myrank,'ispecb5 should equal NSPEC2D_BOTTOM in absorbing boundary detection')
+get_absorb.f90:143:                          NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:38:              NSPEC2D_BOTTOM,NSPEC2D_TOP, &
+get_jacobian_boundaries.f90:39:              NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX,xigll,yigll,zigll)
+get_jacobian_boundaries.f90:46:  integer :: NSPEC2D_BOTTOM,NSPEC2D_TOP,NSPEC2DMAX_XMIN_XMAX,NSPEC2DMAX_YMIN_YMAX
+get_jacobian_boundaries.f90:49:  integer :: ibelm_xmin(NSPEC2DMAX_XMIN_XMAX),ibelm_xmax(NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:50:  integer :: ibelm_ymin(NSPEC2DMAX_YMIN_YMAX),ibelm_ymax(NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:51:  integer :: ibelm_bottom(NSPEC2D_BOTTOM)
+get_jacobian_boundaries.f90:52:  integer :: ibelm_top(NSPEC2D_TOP)
+get_jacobian_boundaries.f90:58:  real(kind=CUSTOM_REAL) :: jacobian2D_xmin(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:59:  real(kind=CUSTOM_REAL) :: jacobian2D_xmax(NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:60:  real(kind=CUSTOM_REAL) :: jacobian2D_ymin(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:61:  real(kind=CUSTOM_REAL) :: jacobian2D_ymax(NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:62:  real(kind=CUSTOM_REAL) :: jacobian2D_bottom(NGLLX,NGLLY,NSPEC2D_BOTTOM)
+get_jacobian_boundaries.f90:63:  real(kind=CUSTOM_REAL) :: jacobian2D_top(NGLLX,NGLLY,NSPEC2D_TOP)
+get_jacobian_boundaries.f90:65:  real(kind=CUSTOM_REAL) :: normal_xmin(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:66:  real(kind=CUSTOM_REAL) :: normal_xmax(NDIM,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:67:  real(kind=CUSTOM_REAL) :: normal_ymin(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:68:  real(kind=CUSTOM_REAL) :: normal_ymax(NDIM,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:69:  real(kind=CUSTOM_REAL) :: normal_bottom(NDIM,NGLLX,NGLLY,NSPEC2D_BOTTOM)
+get_jacobian_boundaries.f90:70:  real(kind=CUSTOM_REAL) :: normal_top(NDIM,NGLLX,NGLLY,NSPEC2D_TOP)
+get_jacobian_boundaries.f90:145:                    jacobian2D_xmin,normal_xmin,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:158:                          NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:200:                    jacobian2D_xmax,normal_xmax,NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:214:                          NGLLY,NGLLZ,NSPEC2DMAX_XMIN_XMAX)
+get_jacobian_boundaries.f90:256:                    jacobian2D_ymin,normal_ymin,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:270:                          NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:312:                    jacobian2D_ymax,normal_ymax,NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:326:                          NGLLX,NGLLZ,NSPEC2DMAX_YMIN_YMAX)
+get_jacobian_boundaries.f90:367:                    jacobian2D_bottom,normal_bottom,NGLLX,NGLLY,NSPEC2D_BOTTOM)
+get_jacobian_boundaries.f90:381:                          NGLLX,NGLLY,NSPEC2D_BOTTOM)
+get_jacobian_boundaries.f90:423:                                  jacobian2D_top,normal_top,NGLLX,NGLLY,NSPEC2D_TOP)
+get_jacobian_boundaries.f90:436:                                  NGLLX,NGLLY,NSPEC2D_TOP)
+get_jacobian_boundaries.f90:446:  if(ispecb5 /= NSPEC2D_BOTTOM) then
+get_jacobian_boundaries.f90:447:    print*,'error ispecb5:',ispecb5,NSPEC2D_BOTTOM
+get_jacobian_boundaries.f90:448:    call exit_MPI(myrank,'ispecb5 should equal NSPEC2D_BOTTOM')
+get_jacobian_boundaries.f90:452:  if(ispecb6 /= NSPEC2D_TOP) call exit_MPI(myrank,'ispecb6 should equal NSPEC2D_TOP')
+get_jacobian_boundaries.f90:464:                                jacobian2D,normal,NGLLA,NGLLB,NSPEC2DMAX_AB)
+get_jacobian_boundaries.f90:472:  integer ispecb,NGLLA,NGLLB,NSPEC2DMAX_AB,myrank
+get_jacobian_boundaries.f90:477:  real(kind=CUSTOM_REAL) jacobian2D(NGLLA,NGLLB,NSPEC2DMAX_AB)
+get_jacobian_boundaries.f90:478:  real(kind=CUSTOM_REAL) normal(3,NGLLA,NGLLB,NSPEC2DMAX_AB)
+get_jacobian_discontinuities.f90:33:                     NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,r_moho,r_400,r_670, &
+get_jacobian_discontinuities.f90:47:  integer NSPEC2D_MOHO, NSPEC2D_400, NSPEC2D_670, nex_eta_moho, ispec_superbrick
+get_jacobian_discontinuities.f90:53:  integer,dimension(NSPEC2D_MOHO) :: ibelm_moho_top, ibelm_moho_bot
+get_jacobian_discontinuities.f90:54:  integer,dimension(NSPEC2D_400) :: ibelm_400_top, ibelm_400_bot
+get_jacobian_discontinuities.f90:55:  integer,dimension(NSPEC2D_670) :: ibelm_670_top, ibelm_670_bot
+get_jacobian_discontinuities.f90:56:  real(kind=CUSTOM_REAL) :: normal_moho(NDIM,NGLLX,NGLLY,NSPEC2D_MOHO), jacobian2D_moho(NGLLX,NGLLY,NSPEC2D_MOHO)
+get_jacobian_discontinuities.f90:57:  real(kind=CUSTOM_REAL) :: normal_400(NDIM,NGLLX,NGLLY,NSPEC2D_400), jacobian2D_400(NGLLX,NGLLY,NSPEC2D_400)
+get_jacobian_discontinuities.f90:58:  real(kind=CUSTOM_REAL) :: normal_670(NDIM,NGLLX,NGLLY,NSPEC2D_670), jacobian2D_670(NGLLX,NGLLY,NSPEC2D_670)
+get_jacobian_discontinuities.f90:65:  integer :: map_isub_ix(4), map_isub_iy(4), map_ix(NSPEC_DOUBLING_SUPERBRICK),  map_iy(NSPEC_DOUBLING_SUPERBRICK)
+get_jacobian_discontinuities.f90:124:    map_ix(1:NSPEC_DOUBLING_SUPERBRICK) = 0
+get_jacobian_discontinuities.f90:125:    map_iy(1:NSPEC_DOUBLING_SUPERBRICK) = 0
+get_jacobian_discontinuities.f90:159:                   jacobian2D_moho,normal_moho,NGLLX,NGLLY,NSPEC2D_MOHO)
+get_jacobian_discontinuities.f90:166:               jacobian2D_400,normal_400,NGLLX,NGLLY,NSPEC2D_400)
+get_jacobian_discontinuities.f90:180:               jacobian2D_670,normal_670,NGLLX,NGLLY,NSPEC2D_670)
+get_MPI_1D_buffers.f90:30:                                NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER,iregion, &
+get_MPI_1D_buffers.f90:56:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_CORNERS) :: NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER
+get_MPI_1D_buffers.f90:146:  if(ispeccount /= NSPEC1D_RADIAL_CORNER(iregion,1) .or. npoin1D /= NGLOB1D_RADIAL_CORNER(iregion,1)) &
+get_MPI_1D_buffers.f90:209:  if(ispeccount /= NSPEC1D_RADIAL_CORNER(iregion,2) .or. npoin1D /= NGLOB1D_RADIAL_CORNER(iregion,2)) &
+get_MPI_1D_buffers.f90:280:  if(ispeccount /= NSPEC1D_RADIAL_CORNER(iregion,4) .or. npoin1D /= NGLOB1D_RADIAL_CORNER(iregion,4)) &
+get_MPI_1D_buffers.f90:348:  if(ispeccount /= NSPEC1D_RADIAL_CORNER(iregion,3) .or. npoin1D /= NGLOB1D_RADIAL_CORNER(iregion,3)) &
+get_MPI_cutplanes_eta.f90:30:                                  NSPEC2D_XI_FACE,iregion,npoin2D_eta, &
+get_MPI_cutplanes_eta.f90:55:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_EDGES_ONEDIR) :: NSPEC2D_XI_FACE
+get_MPI_cutplanes_eta.f90:81:  nspec2Dtheor = NSPEC2D_XI_FACE(iregion,1)
+get_MPI_cutplanes_eta.f90:155:  nspec2Dtheor = NSPEC2D_XI_FACE(iregion,2)
+get_MPI_cutplanes_xi.f90:30:                                  NSPEC2D_ETA_FACE,iregion,npoin2D_xi, &
+get_MPI_cutplanes_xi.f90:55:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_EDGES_ONEDIR) :: NSPEC2D_ETA_FACE
+get_MPI_cutplanes_xi.f90:83:  nspec2Dtheor = NSPEC2D_ETA_FACE(iregion,1)
+get_MPI_cutplanes_xi.f90:172:  nspec2Dtheor = NSPEC2D_ETA_FACE(iregion,2)
+get_MPI_interfaces.f90:28:  subroutine get_MPI_interfaces(myrank,NGLOB,NSPEC, &
+get_MPI_interfaces.f90:40:  integer,intent(in) :: myrank,NGLOB,NSPEC
+get_MPI_interfaces.f90:51:  integer,dimension(NGLLX,NGLLY,NGLLZ,NSPEC),intent(in) :: ibool
+get_MPI_interfaces.f90:53:  logical,dimension(NSPEC),intent(inout) :: is_on_a_slice_edge
+get_MPI_interfaces.f90:57:  integer,dimension(NSPEC),intent(in) :: idoubling
+get_MPI_interfaces.f90:72:  logical,dimension(NSPEC) :: work_ispec_is_outer
+get_MPI_interfaces.f90:96:  do ispec = 1,NSPEC
+meshfem3D.f90:371:  ! print*, NSPEC(:)
+meshfem3D.f90~:371:  ! print*, NSPEC(:)
+meshfem3D_models.f90:28:  subroutine meshfem3D_models_broadcast(myrank,NSPEC, &
+meshfem3D_models.f90:40:  integer, dimension(MAX_NUM_REGIONS) :: NSPEC
+meshfem3D_models.f90:161:    call model_gll_broadcast(myrank,MGLL_V,NSPEC)
+meshfem3D_models.f90~:28:  subroutine meshfem3D_models_broadcast(myrank,NSPEC, &
+meshfem3D_models.f90~:40:  integer, dimension(MAX_NUM_REGIONS) :: NSPEC
+meshfem3D_models.f90~:161:    call model_gll_broadcast(myrank,MGLL_V,NSPEC)
+meshfem3D_par.f90:187:  integer :: NSPECMAX_ANISO_IC,NSPECMAX_ISO_MANTLE,NSPECMAX_TISO_MANTLE, &
+meshfem3D_par.f90:188:         NSPECMAX_ANISO_MANTLE,NSPEC_CRUST_MANTLE_ATTENUATION, &
+meshfem3D_par.f90:189:         NSPEC_INNER_CORE_ATTENUATION, &
+meshfem3D_par.f90:190:         NSPEC_CRUST_MANTLE_STR_OR_ATT,NSPEC_INNER_CORE_STR_OR_ATT, &
+meshfem3D_par.f90:191:         NSPEC_CRUST_MANTLE_STR_AND_ATT,NSPEC_INNER_CORE_STR_AND_ATT, &
+meshfem3D_par.f90:192:         NSPEC_CRUST_MANTLE_STRAIN_ONLY,NSPEC_INNER_CORE_STRAIN_ONLY, &
+meshfem3D_par.f90:193:         NSPEC_CRUST_MANTLE_ADJOINT, &
+meshfem3D_par.f90:194:         NSPEC_OUTER_CORE_ADJOINT,NSPEC_INNER_CORE_ADJOINT, &
+meshfem3D_par.f90:196:         NGLOB_INNER_CORE_ADJOINT,NSPEC_OUTER_CORE_ROT_ADJOINT, &
+meshfem3D_par.f90:197:         NSPEC_CRUST_MANTLE_STACEY,NSPEC_OUTER_CORE_STACEY, &
+meshfem3D_par.f90:198:         NGLOB_CRUST_MANTLE_OCEANS,NSPEC_OUTER_CORE_ROTATION
+meshfem3D_par.f90:205:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_CORNERS) :: NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER
+meshfem3D_par.f90:208:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_EDGES_ONEDIR) :: NSPEC2D_XI_FACE,NSPEC2D_ETA_FACE
+meshfem3D_par.f90:336:  integer :: NSPEC2D_MOHO,NSPEC2D_400,NSPEC2D_670,nex_eta_moho
+meshfem3D_par.f90:451:  integer :: NSPEC_CRUST_MANTLE
+meshfem3D_par.f90:457:  integer :: NSPEC2DMAX_XMIN_XMAX_CM
+meshfem3D_par.f90:458:  integer :: NSPEC2DMAX_YMIN_YMAX_CM
+meshfem3D_par.f90:459:  integer :: NSPEC2D_BOTTOM_CM
+meshfem3D_par.f90:460:  integer :: NSPEC2D_TOP_CM
+meshfem3D_par.f90:510:  integer :: NSPEC_INNER_CORE
+meshfem3D_par.f90:516:  integer :: NSPEC2DMAX_XMIN_XMAX_IC
+meshfem3D_par.f90:517:  integer :: NSPEC2DMAX_YMIN_YMAX_IC
+meshfem3D_par.f90:518:  integer :: NSPEC2D_BOTTOM_IC
+meshfem3D_par.f90:519:  integer :: NSPEC2D_TOP_IC
+meshfem3D_par.f90:579:  integer :: NSPEC_OUTER_CORE
+meshfem3D_par.f90:585:  integer :: NSPEC2DMAX_XMIN_XMAX_OC
+meshfem3D_par.f90:586:  integer :: NSPEC2DMAX_YMIN_YMAX_OC
+meshfem3D_par.f90:587:  integer :: NSPEC2D_BOTTOM_OC
+meshfem3D_par.f90:588:  integer :: NSPEC2D_TOP_OC
+model_gll.f90:36:  subroutine model_gll_broadcast(myrank,MGLL_V,NSPEC)
+model_gll.f90:61:  integer, dimension(MAX_NUM_REGIONS) :: NSPEC
+model_gll.f90:73:    allocate( MGLL_V%vp_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), &
+model_gll.f90:74:              MGLL_V%vs_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), stat=ier)
+model_gll.f90:78:    allocate( MGLL_V%vpv_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), &
+model_gll.f90:79:              MGLL_V%vph_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), &
+model_gll.f90:80:              MGLL_V%vsv_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), &
+model_gll.f90:81:              MGLL_V%vsh_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), &
+model_gll.f90:82:              MGLL_V%eta_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), stat=ier)
+model_gll.f90:86:  allocate( MGLL_V%rho_new(NGLLX,NGLLY,NGLLZ,NSPEC(IREGION_CRUST_MANTLE)), stat=ier)
+model_gll.f90:91:    call read_gll_model_adios(myrank,MGLL_V,NSPEC)
+model_gll.f90:93:    call read_gll_model(myrank,MGLL_V,NSPEC)
+model_gll.f90:222:  subroutine read_gll_model(myrank,MGLL_V,NSPEC)
+model_gll.f90:244:  integer, dimension(MAX_NUM_REGIONS) :: NSPEC
+model_ppm.f90:764:  allocate( slice_x(NGLLX,NGLLY,NGLLZ,NSPEC,nums))
+model_ppm.f90:765:  allocate( slice_y(NGLLX,NGLLY,NGLLZ,NSPEC,nums))
+model_ppm.f90:766:  allocate( slice_z(NGLLX,NGLLY,NGLLZ,NSPEC,nums))
+model_ppm.f90:767:  allocate( slice_jacobian(NGLLX,NGLLY,NGLLZ,NSPEC,nums))
+model_ppm.f90:776:    call bcast_all_cr(x,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:777:    call bcast_all_cr(y,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:778:    call bcast_all_cr(z,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:779:    call bcast_all_cr(jacobian,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:793:  allocate( slice_kernels(NGLLX,NGLLY,NGLLZ,NSPEC,nums,9))
+model_ppm.f90:820:    call bcast_all_cr(ks_rho,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:821:    call bcast_all_cr(ks_kv,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:822:    call bcast_all_cr(ks_kh,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:823:    call bcast_all_cr(ks_muv,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:824:    call bcast_all_cr(ks_muh,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:825:    call bcast_all_cr(ks_eta,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:826:    call bcast_all_cr(ks_dvp,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:827:    call bcast_all_cr(ks_rhovp,NGLLX*NGLLY*NGLLZ*NSPEC)
+model_ppm.f90:828:    call bcast_all_cr(ks_rhovs,NGLLX*NGLLY*NGLLZ*NSPEC)
+save_arrays_solver.f90:30:                                NSPEC2D_TOP,NSPEC2D_BOTTOM)
+save_arrays_solver.f90:75:  integer,intent(in) :: NSPEC2D_TOP,NSPEC2D_BOTTOM
+save_arrays_solver.f90:278:  write(IOUT) NSPEC2D_BOTTOM
+save_arrays_solver.f90:279:  write(IOUT) NSPEC2D_TOP
+save_arrays_solver.f90:650:    NSPEC2D_MOHO, NSPEC2D_400, NSPEC2D_670, &
+save_arrays_solver.f90:664:    if (ispec2D_moho_top /= NSPEC2D_MOHO .or. ispec2D_moho_bot /= NSPEC2D_MOHO) &
+save_arrays_solver.f90:667:  if (ispec2D_400_top /= NSPEC2D_400 .or. ispec2D_400_bot /= NSPEC2D_400) &
+save_arrays_solver.f90:669:  if (ispec2D_670_top /= NSPEC2D_670 .or. ispec2D_670_bot /= NSPEC2D_670) &
+save_arrays_solver.f90:677:  write(IOUT) NSPEC2D_MOHO, NSPEC2D_400, NSPEC2D_670
+setup_color_perm.f90:72:      nspec = NSPEC_CRUST_MANTLE
+setup_color_perm.f90:124:      nspec = NSPEC_OUTER_CORE
+setup_color_perm.f90:176:      nspec = NSPEC_INNER_CORE
+setup_color_perm.f90:611:    NCHUNKS,NSPEC2D_TOP,NSPEC2D_BOTTOM, &
+setup_color_perm.f90:625:    NSPEC2D_MOHO, NSPEC2D_400, NSPEC2D_670, &
+setup_color_perm.f90:629:  use MPI_crust_mantle_par,only: NSPEC_CRUST_MANTLE, &
+setup_color_perm.f90:632:  use MPI_outer_core_par,only: NSPEC_OUTER_CORE
+setup_color_perm.f90:633:  use MPI_inner_core_par,only: NSPEC_INNER_CORE
+setup_color_perm.f90:847:  do iface = 1,NSPEC2D_BOTTOM(idomain)
+setup_color_perm.f90:853:  do iface = 1,NSPEC2D_TOP(idomain)
+setup_color_perm.f90:879:    if( nspec /= NSPEC_CRUST_MANTLE ) &
+setup_color_perm.f90:880:      call exit_MPI(myrank,'error in permutation nspec should be NSPEC_CRUST_MANTLE')
+setup_color_perm.f90:967:    if( nspec /= NSPEC_OUTER_CORE ) &
+setup_color_perm.f90:968:      call exit_MPI(myrank,'error in permutation nspec should be NSPEC_OUTER_CORE')
+setup_color_perm.f90:980:    if( nspec /= NSPEC_INNER_CORE ) &
+setup_color_perm.f90:981:      call exit_MPI(myrank,'error in permutation nspec should be NSPEC_INNER_CORE')
+setup_color_perm.f90:1158:!    write(99,*) 'integer, parameter :: NSPEC = ',nspec
+setup_color_perm.f90:1173:!    write(99,*) 'integer, parameter :: NSPEC_SOURCE = ',perm(NSPEC/3)
+setup_color_perm.f90:1177:!    write(99,*) 'integer, parameter :: NSPEC_STATION = ',perm(2*NSPEC/3)
+setup_color_perm.f90:1195:!    write(99,*) '#define NSPEC ',nspec
+setup_color_perm.f90:1213:!    write(99,*) '#define NSPEC_SOURCE ',perm(NSPEC/3)
+setup_color_perm.f90:1216:!    write(99,*) '#define NSPEC_STATION ',perm(2*NSPEC/3)
+setup_color_perm.f90:1223:!    write(99,*) '#define NSPEC_OUTER ',nspec_outer_max_global
+setup_color_perm.f90:1224:!    write(99,*) '// NSPEC_OUTER_min = ',nspec_outer_min_global
+setup_color_perm.f90:1225:!    write(99,*) '// NSPEC_OUTER_max = ',nspec_outer_max_global
+setup_counters.f90:30:                        NSPEC1D_RADIAL,NSPEC2D_XI,NSPEC2D_ETA,NGLOB1D_RADIAL, &
+setup_counters.f90:31:                        DIFF_NSPEC1D_RADIAL,DIFF_NSPEC2D_XI,DIFF_NSPEC2D_ETA, &
+setup_counters.f90:34:                        NSPEC1D_RADIAL_CORNER,NSPEC2D_XI_FACE, &
+setup_counters.f90:35:                        NSPEC2D_ETA_FACE,NGLOB1D_RADIAL_CORNER)
+setup_counters.f90:37:! returns: NSPEC1D_RADIAL_CORNER,NSPEC2D_XI_FACE,
+setup_counters.f90:38:!              NSPEC2D_ETA_FACE,NGLOB1D_RADIAL_CORNER
+setup_counters.f90:47:  integer, dimension(MAX_NUM_REGIONS) :: NSPEC2D_XI,NSPEC2D_ETA, &
+setup_counters.f90:48:                                         NSPEC1D_RADIAL,NGLOB1D_RADIAL
+setup_counters.f90:50:  integer, dimension(NB_SQUARE_CORNERS,NB_CUT_CASE) :: DIFF_NSPEC1D_RADIAL
+setup_counters.f90:51:  integer, dimension(NB_SQUARE_EDGES_ONEDIR,NB_CUT_CASE) :: DIFF_NSPEC2D_XI,DIFF_NSPEC2D_ETA
+setup_counters.f90:65:    NSPEC1D_RADIAL_CORNER,NGLOB1D_RADIAL_CORNER
+setup_counters.f90:67:  integer, dimension(MAX_NUM_REGIONS,NB_SQUARE_EDGES_ONEDIR) :: NSPEC2D_XI_FACE,NSPEC2D_ETA_FACE
+setup_counters.f90:74:    NSPEC1D_RADIAL_CORNER(iregion,:) = NSPEC1D_RADIAL(iregion)
+setup_counters.f90:75:    NSPEC2D_XI_FACE(iregion,:) = NSPEC2D_XI(iregion)
+setup_counters.f90:76:    NSPEC2D_ETA_FACE(iregion,:) = NSPEC2D_ETA(iregion)
+setup_counters.f90:84:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,1)
+setup_counters.f90:85:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,1)
+setup_counters.f90:86:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,1)
+setup_counters.f90:88:                                                        + (DIFF_NSPEC1D_RADIAL(:,1)*(NGLLZ-1))
+setup_counters.f90:90:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,2)
+setup_counters.f90:91:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,2)
+setup_counters.f90:92:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,2)
+setup_counters.f90:94:                                                        + (DIFF_NSPEC1D_RADIAL(:,2)*(NGLLZ-1))
+setup_counters.f90:98:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,3)
+setup_counters.f90:99:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,3)
+setup_counters.f90:100:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,3)
+setup_counters.f90:102:                                                        + (DIFF_NSPEC1D_RADIAL(:,3)*(NGLLZ-1))
+setup_counters.f90:104:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,4)
+setup_counters.f90:105:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,4)
+setup_counters.f90:106:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,4)
+setup_counters.f90:108:                                                        + (DIFF_NSPEC1D_RADIAL(:,4)*(NGLLZ-1))
+setup_counters.f90:113:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,1)
+setup_counters.f90:114:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,1)
+setup_counters.f90:115:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,1)
+setup_counters.f90:117:                                                        + (DIFF_NSPEC1D_RADIAL(:,1)*(NGLLZ-1))
+setup_counters.f90:119:        NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,2)
+setup_counters.f90:120:        NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,2)
+setup_counters.f90:121:        NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,2)
+setup_counters.f90:123:                                                      + (DIFF_NSPEC1D_RADIAL(:,2)*(NGLLZ-1))
+setup_counters.f90:129:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,1)
+setup_counters.f90:130:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,1)
+setup_counters.f90:131:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,1)
+setup_counters.f90:133:                                                        + (DIFF_NSPEC1D_RADIAL(:,1)*(NGLLZ-1))
+setup_counters.f90:135:          NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) = NSPEC1D_RADIAL_CORNER(IREGION_OUTER_CORE,:) + DIFF_NSPEC1D_RADIAL(:,2)
+setup_counters.f90:136:          NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_XI_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_XI(:,2)
+setup_counters.f90:137:          NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) = NSPEC2D_ETA_FACE(IREGION_OUTER_CORE,:) + DIFF_NSPEC2D_ETA(:,2)
+setup_counters.f90:139:                                                        + (DIFF_NSPEC1D_RADIAL(:,2)*(NGLLZ-1))
+setup_inner_outer.f90:60:    nspec_inner_crust_mantle = NSPEC_CRUST_MANTLE - nspec_outer_crust_mantle
+setup_inner_outer.f90:70:    do ispec=1,NSPEC_CRUST_MANTLE
+setup_inner_outer.f90:87:      percentage_edge = 100. * nspec_outer_crust_mantle / real(NSPEC_CRUST_MANTLE)
+setup_inner_outer.f90:97:      call write_VTK_data_elem_l(NSPEC_CRUST_MANTLE,NGLOB_CRUST_MANTLE, &
+setup_inner_outer.f90:106:    nspec_inner_outer_core = NSPEC_OUTER_CORE - nspec_outer_outer_core
+setup_inner_outer.f90:116:    do ispec=1,NSPEC_OUTER_CORE
+setup_inner_outer.f90:130:      percentage_edge = 100.* nspec_outer_outer_core / real(NSPEC_OUTER_CORE)
+setup_inner_outer.f90:139:      call write_VTK_data_elem_l(NSPEC_OUTER_CORE,NGLOB_OUTER_CORE, &
+setup_inner_outer.f90:148:    nspec_inner_inner_core = NSPEC_INNER_CORE - nspec_outer_inner_core
+setup_inner_outer.f90:158:    do ispec=1,NSPEC_INNER_CORE
+setup_inner_outer.f90:172:      percentage_edge = 100. * nspec_outer_inner_core / real(NSPEC_INNER_CORE)
+setup_inner_outer.f90:182:      call write_VTK_data_elem_l(NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+setup_model.f90:49:                      NSPEC1D_RADIAL,NSPEC2D_XI,NSPEC2D_ETA,NGLOB1D_RADIAL, &
+setup_model.f90:50:                      DIFF_NSPEC1D_RADIAL,DIFF_NSPEC2D_XI,DIFF_NSPEC2D_ETA, &
+setup_model.f90:53:                      NSPEC1D_RADIAL_CORNER,NSPEC2D_XI_FACE, &
+setup_model.f90:54:                      NSPEC2D_ETA_FACE,NGLOB1D_RADIAL_CORNER)
+setup_model.f90:57:  call meshfem3D_models_broadcast(myrank,NSPEC, &
+setup_MPI_interfaces.f90:184:  allocate(dummy_i(NSPEC_CRUST_MANTLE),stat=ier)
+setup_MPI_interfaces.f90:188:  call get_MPI_interfaces(myrank,NGLOB_CRUST_MANTLE,NSPEC_CRUST_MANTLE, &
+setup_MPI_interfaces.f90:315:  allocate(dummy_i(NSPEC_OUTER_CORE),stat=ier)
+setup_MPI_interfaces.f90:319:  call get_MPI_interfaces(myrank,NGLOB_OUTER_CORE,NSPEC_OUTER_CORE, &
+setup_MPI_interfaces.f90:392:    OUTPUT_FILES,IFLAG_IN_FICTITIOUS_CUBE,NGLLX,NGLLY,NGLLZ,NSPEC2D_BOTTOM
+setup_MPI_interfaces.f90:426:  do ispec=1,NSPEC_INNER_CORE
+setup_MPI_interfaces.f90:459:    call write_VTK_data_elem_i(NSPEC_INNER_CORE,NGLOB_INNER_CORE, &
+setup_MPI_interfaces.f90:479:                 idoubling, NSPEC_INNER_CORE, &
+setup_MPI_interfaces.f90:480:                 ibelm_bottom_inner_core, NSPEC2D_BOTTOM(IREGION_INNER_CORE), &
+setup_MPI_interfaces.f90:499:  !    call get_MPI_interfaces(myrank,NGLOB_INNER_CORE,NSPEC_INNER_CORE, &
+setup_MPI_interfaces.f90:512:  call get_MPI_interfaces(myrank,NGLOB_INNER_CORE,NSPEC_INNER_CORE, &

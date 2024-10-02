@@ -1,0 +1,324 @@
+--- a/setup/constants.h
++++ b/setup/constants.h
+@@ -44,7 +44,7 @@
+ 
+ ! set to SIZE_REAL to run in single precision
+ ! set to SIZE_DOUBLE to run in double precision (increases memory size by 2)
+-  integer, parameter :: CUSTOM_REAL = SIZE_REAL
++  integer, parameter :: CUSTOM_REAL = SIZE_DOUBLE
+ 
+ ! ********************************************************************************************************   
+ ! Save mirror files
+diff --git a/src/meshfem3D/create_meshes.f90 b/src/meshfem3D/create_meshes.f90
+index ee54247..b0fcb40 100644
+--- a/src/meshfem3D/create_meshes.f90
++++ b/src/meshfem3D/create_meshes.f90
+@@ -34,6 +34,39 @@
+   integer :: ipass
+   integer :: ier
+ 
+
+   ! get addressing for this process
+   ichunk = ichunk_slice(myrank)
+   iproc_xi = iproc_xi_slice(myrank)
+diff --git a/src/meshfem3D/get_model.f90 b/src/meshfem3D/get_model.f90
+index 2c6acfb..022dc1a 100644
+--- a/src/meshfem3D/get_model.f90
++++ b/src/meshfem3D/get_model.f90
+@@ -224,6 +224,13 @@
+           muhstore(i,j,k,ispec) = sngl(rho*vsh*vsh)
+           eta_anisostore(i,j,k,ispec) = sngl(eta_aniso)
+ 
++          ! if (CRUSTAL .and. .not. elem_in_mantle) then
++          ! print *,'r',r,'theta',theta,'phi',phi,'rho',rhostore(i,j,k,ispec),&
++          ! 'kappav',kappavstore(i,j,k,ispec),&
++          ! 'kappah',kappahstore(i,j,k,ispec),'muv',muvstore(i,j,k,ispec),&
++          ! 'muh',muhstore(i,j,k,ispec),'eta_aniso',eta_anisostore(i,j,k,ispec)
++          ! endif
++
+           if (HETEROGEN_3D_MANTLE) then
+             dvpstore(i,j,k,ispec) = sngl(dvp)
+           endif
+diff --git a/src/meshfem3D/meshfem3D_models.f90 b/src/meshfem3D/meshfem3D_models.f90
+index e075f71..9dc0a34 100644
+--- a/src/meshfem3D/meshfem3D_models.f90
++++ b/src/meshfem3D/meshfem3D_models.f90
+@@ -567,6 +567,13 @@
+           dvsh = 0.d0
+         endif
+ 
++        ! dvpv = 0.d0
++        ! dvph = 0.d0
++        ! dvsv = 0.d0
++        ! dvsh = 0.d0
++        ! drho = 0.d0
++        ! eta_aniso = 1.d0
++
+         if(TRANSVERSE_ISOTROPY) then
+           vpv=vpv*(1.0d0+dble(dvpv))
+           vph=vph*(1.0d0+dble(dvph))
+@@ -589,6 +596,11 @@
+           eta_aniso=1.0d0
+           rho=rho*(1.0d0+drho)
+         endif
++
++        ! if (dvpv/=0.) then
++        !   print *,'non-zero perturbation problem, dvpv=',dvpv,'dvph=',dvph,'dvsv=',dvsv,'dvsh=',dvsh
++        ! endif
++
+       case default
+         stop 'unknown 3D Earth model in meshfem3D_models_get3Dmntl_val() '
+ 
+@@ -687,6 +699,7 @@
+ ! returns velocities and density for points in 3D crustal region
+ 
+   use meshfem3D_models_par
++  use constants,only: R_EARTH, R_EARTH_KM, ONE, PI, GRAV, RHOAV
+ 
+   implicit none
+ 
+@@ -707,6 +720,7 @@
+   double precision :: lat,lon
+   double precision :: vpc,vsc,rhoc !,vpc_eu
+   double precision :: dvs
++  double precision :: scaleval
+   logical :: found_crust !,found_eucrust
+ 
+   ! checks if anything to do, that is, there is nothing to do
+@@ -773,6 +787,28 @@
+           call model_berkeley_crust_aniso(lat,lon,r,vpv,vph,vsv,vsh,eta_aniso,rho,moho)
+     ENDIF
+ 
++    ! vpv=dble(5800)
++    ! vph=dble(5800)
++    ! vsv=dble(3200)
++    ! vsh=dble(3200)
++    ! eta_aniso=dble(1.0)
++    ! rho=dble(2600)
++    ! moho=dble(30)/R_EARTH_KM
++
++    ! scaleval = ONE / ( R_EARTH * dsqrt(PI*GRAV*RHOAV) )
++    ! vpv=dble(5800)
++    ! vpv=vpv/scaleval
++    ! vph=dble(5800)
++    ! vph=vph/scaleval
++    ! vsv=dble(3200)
++    ! vsv=vsv/scaleval
++    ! vsh=dble(3200)
++    ! vsh=vsh/scaleval
++    ! eta_aniso=dble(1.0)
++    ! rho=dble(2600)
++    ! rho=rho/RHOAV
++    ! moho=dble(30)/R_EARTH_KM
++
+     ! sets anisotropy in crustal region as well
+     if( ANISOTROPIC_3D_MANTLE .and. iregion_code == IREGION_CRUST_MANTLE) then
+       c11 = rho*vpv*vpv
+diff --git a/src/meshfem3D/setup_model.f90 b/src/meshfem3D/setup_model.f90
+index 138d9bd..dbb4794 100644
+--- a/src/meshfem3D/setup_model.f90
++++ b/src/meshfem3D/setup_model.f90
+@@ -66,6 +66,43 @@
+   endif
+   call synchronize_all()
+ 
++  print *,""
++  print *,"printing model parameter flags"
++  print *,'MODEL',MODEL
++  print *,'REFERENCE_1D_MODEL',REFERENCE_1D_MODEL
++  print *,"THREE_D_MODEL",THREE_D_MODEL
++  print *,"ANISOTROPIC_3D_MANTLE",ANISOTROPIC_3D_MANTLE
++  print *,"ANISOTROPIC_INNER_CORE",ANISOTROPIC_INNER_CORE
++  print *,"ATTENUATION_3D",ATTENUATION_3D
++  print *,'CASE_3D',CASE_3D
++  print *,"CRUSTAL",CRUSTAL
++  print *,"HETEROGEN_3D_MANTLE",HETEROGEN_3D_MANTLE
++  print *,"HONOR_1D_SPHERICAL_MOHO",HONOR_1D_SPHERICAL_MOHO
++  print *,"ISOTROPIC_3D_MANTLE (MODEL_3D_MANTLE_PERTUBATIONS)",ISOTROPIC_3D_MANTLE
++  print *,'ONE_CRUST',ONE_CRUST
++  print *,"TRANSVERSE_ISOTROPY",TRANSVERSE_ISOTROPY
++
++  WRITE(*,*)'=================================================='
++  WRITE(*,*)'SUPPRESS_CRUSTAL_MESH', SUPPRESS_CRUSTAL_MESH
++  WRITE(*,*)'ONE_CRUST', ONE_CRUST
++  WRITE(*,*)'CRUSTAL', CRUSTAL
++  WRITE(*,*)'HONOR_1D_SPHERICAL_MOHO', HONOR_1D_SPHERICAL_MOHO
++  WRITE(*,*)'OCEANS', OCEANS
++  WRITE(*,*)'------------------------------------------------'
++  WRITE(*,*)'ROCEAN',ROCEAN
++  WRITE(*,*)'RMIDDLE_CRUST',RMIDDLE_CRUST
++  WRITE(*,*)'RMOHO',RMOHO
++  WRITE(*,*)'R80',R80
++  WRITE(*,*)'R120',R120
++  WRITE(*,*)'R220',R220
++  WRITE(*,*)'R400',R400
++  WRITE(*,*)'R600',R600
++  WRITE(*,*)'R670',R670
++  WRITE(*,*)'R771',R771
++  WRITE(*,*)'RMOHO_FICTITIOUS_IN_MESHER',RMOHO_FICTITIOUS_IN_MESHER
++  WRITE(*,*)'R80_FICTITIOUS_IN_MESHER',R80_FICTITIOUS_IN_MESHER
++  WRITE(*,*)'================================================='
++
+   end subroutine setup_model
+ 
+ !
+diff --git a/src/shared/get_model_parameters.f90 b/src/shared/get_model_parameters.f90
+index f8d0e27..3f3f50b 100755
+--- a/src/shared/get_model_parameters.f90
++++ b/src/shared/get_model_parameters.f90
+@@ -70,6 +70,24 @@
+                                   RHO_TOP_OC,RHO_BOTTOM_OC,RHO_OCEANS, &
+                                   HONOR_1D_SPHERICAL_MOHO,CASE_3D,CRUSTAL)
+ 
++  print *,'ROCEAN',ROCEAN
++  print *,'RMIDDLE_CRUST',RMIDDLE_CRUST
++  print *,'RMOHO',RMOHO
++  print *,'R80',R80
++  print *,'R120',R120
++  print *,'R220',R220
++  print *,'R400',R400 
++  print *,'R600',R600 
++  print *,'R670',R670 
++  print *,'R771',R771 
++  print *,'RTOPDDOUBLEPRIME',RTOPDDOUBLEPRIME 
++  print *,'RCMB',RCMB 
++  print *,'RICB',RICB 
++  print *,'RHO_TOP_OC',RHO_TOP_OC 
++  print *,'RHO_BOTTOM_OC',RHO_BOTTOM_OC 
++
++  print *,'RMOHO_FICTITIOUS_IN_MESHER',RMOHO_FICTITIOUS_IN_MESHER 
++  print *,'R80_FICTITIOUS_IN_MESHER',R80_FICTITIOUS_IN_MESHER 
+ 
+   end subroutine get_model_parameters
+ 
+@@ -432,6 +450,28 @@
+     REFERENCE_1D_MODEL = REFERENCE_MODEL_BERKELEY
+     THREE_D_MODEL = THREE_D_MODEL_BERKELEY
+     TRANSVERSE_ISOTROPY = .true.
++  
++  else if(MODEL == 'PREM_A3d_test_1Dcrust') then
++    ! Model discontinutities for PREM anisotropic no_ocean 
++    ! layered version
++    CASE_3D = .true.
++    ! no 3D crust
++    CRUSTAL = .false.
++    ! 2 element layers in top crust region rather than just one
++    ISOTROPIC_3D_MANTLE = .true.
++    REFERENCE_1D_MODEL = REFERENCE_MODEL_BERKELEY
++    THREE_D_MODEL = THREE_D_MODEL_BERKELEY
++    TRANSVERSE_ISOTROPY = .true.
++
++  else if(MODEL == 'SEMUCB_A3d_nocrust') then
++    CASE_3D = .true.
++    CRUSTAL = .true.
++    ISOTROPIC_3D_MANTLE = .true.
++    ONE_CRUST = .true.
++    REFERENCE_1D_MODEL = REFERENCE_MODEL_BERKELEY
++    THREE_D_MODEL = THREE_D_MODEL_BERKELEY
++    TRANSVERSE_ISOTROPY = .true.
++    
+   else
+     print*
+     print*,'error model: ',trim(MODEL)
+@@ -461,6 +501,8 @@
+     if (MODEL == 'PREM_A3d_1Dcrust') then
+         ! Added <FM> Feb 2022
+         HONOR_1D_SPHERICAL_MOHO = .false.
++    else if (MODEL == 'PREM_A3d_test_1Dcrust') then
++        HONOR_1D_SPHERICAL_MOHO = .false.
+     else
+         HONOR_1D_SPHERICAL_MOHO = .true.
+     endif
+@@ -479,6 +521,23 @@
+       REFERENCE_1D_MODEL == REFERENCE_MODEL_JP1D .or. &
+       REFERENCE_1D_MODEL == REFERENCE_MODEL_SEA1D) .and. TRANSVERSE_ISOTROPY) &
+         stop 'models IASP91, AK135, 1066A, JP1D and SEA1D are currently isotropic'
++  
++  ! print *,""
++  ! print *,"printing model parameter flags"
++  ! print *,'MODEL',MODEL
++  ! print *,'MODEL_ROOT',MODEL_ROOT
++  ! print *,'REFERENCE_1D_MODEL',REFERENCE_1D_MODEL
++  ! print *,"THREE_D_MODEL",THREE_D_MODEL
++  ! print *,"ANISOTROPIC_3D_MANTLE",ANISOTROPIC_3D_MANTLE
++  ! print *,"ANISOTROPIC_INNER_CORE",ANISOTROPIC_INNER_CORE
++  ! print *,"ATTENUATION_3D",ATTENUATION_3D
++  ! print *,'CASE_3D',CASE_3D
++  ! print *,"CRUSTAL",CRUSTAL
++  ! print *,"HETEROGEN_3D_MANTLE",HETEROGEN_3D_MANTLE
++  ! print *,"HONOR_1D_SPHERICAL_MOHO",HONOR_1D_SPHERICAL_MOHO
++  ! print *,"ISOTROPIC_3D_MANTLE (MODEL_3D_MANTLE_PERTUBATIONS)",ISOTROPIC_3D_MANTLE
++  ! print *,'ONE_CRUST',ONE_CRUST
++  ! print *,"TRANSVERSE_ISOTROPY",TRANSVERSE_ISOTROPY
+ 
+ 
+   end subroutine get_model_parameters_flags
+@@ -685,7 +744,7 @@
+     RHO_BOTTOM_OC = 12166.5885 / RHOAV
+     
+   else if(REFERENCE_1D_MODEL == REFERENCE_MODEL_BERKELEY) then
+-    if (MODEL == "PREM_A3d_1Dcrust") then
++    if ((MODEL == "PREM_A3d_1Dcrust").or.( MODEL == "SEMUCB_A3d_nocrust")) then
+       ! ------ LAYERED PREM DISCONTINUITIES --------
+       ! Only for debugging purposes
+       ! Added <FM> Feb 2022
+@@ -744,7 +803,7 @@
+     endif
+     if(REFERENCE_1D_MODEL == REFERENCE_MODEL_BERKELEY) then
+       ! Added <FM> Feb 2022
+-      if ( MODEL == "PREM_A3d_1Dcrust") then
++      if (( MODEL == "PREM_A3d_1Dcrust").or.( MODEL == "SEMUCB_A3d_nocrust")) then
+          ! PREM LAYERED 1D Crust (only for debugging purposes)
+          RMOHO_FICTITIOUS_IN_MESHER = RMOHO
+          R80_FICTITIOUS_IN_MESHER = R80
+diff --git a/src/shared/read_compute_parameters.f90 b/src/shared/read_compute_parameters.f90
+index c6097b7..9ee1709 100644
+--- a/src/shared/read_compute_parameters.f90
++++ b/src/shared/read_compute_parameters.f90
+@@ -105,26 +105,26 @@
+                         R80_FICTITIOUS_IN_MESHER,RHO_TOP_OC,RHO_BOTTOM_OC,RHO_OCEANS)
+ 
+   ! <FM> - Print initialized options on terminal 
+-  WRITE(*,*)'=================================================='
+-  WRITE(*,*)'SUPPRESS_CRUSTAL_MESH', SUPPRESS_CRUSTAL_MESH
+-  WRITE(*,*)'ONE_CRUST', ONE_CRUST
+-  WRITE(*,*)'CRUSTAL', CRUSTAL
+-  WRITE(*,*)'HONOR_1D_SPHERICAL_MOHO', HONOR_1D_SPHERICAL_MOHO
+-  WRITE(*,*)'OCEANS', OCEANS
+-  WRITE(*,*)'------------------------------------------------'
+-  WRITE(*,*)'ROCEAN',ROCEAN
+-  WRITE(*,*)'RMIDDLE_CRUST',RMIDDLE_CRUST
+-  WRITE(*,*)'RMOHO',RMOHO
+-  WRITE(*,*)'R80',R80
+-  WRITE(*,*)'R120',R120
+-  WRITE(*,*)'R220',R220
+-  WRITE(*,*)'R400',R400
+-  WRITE(*,*)'R600',R600
+-  WRITE(*,*)'R670',R670
+-  WRITE(*,*)'R771',R771
+-  WRITE(*,*)'RMOHO_FICTITIOUS_IN_MESHER',RMOHO_FICTITIOUS_IN_MESHER
+-  WRITE(*,*)'R80_FICTITIOUS_IN_MESHER',R80_FICTITIOUS_IN_MESHER
+-  WRITE(*,*)'================================================='
++  ! WRITE(*,*)'=================================================='
++  ! WRITE(*,*)'SUPPRESS_CRUSTAL_MESH', SUPPRESS_CRUSTAL_MESH
++  ! WRITE(*,*)'ONE_CRUST', ONE_CRUST
++  ! WRITE(*,*)'CRUSTAL', CRUSTAL
++  ! WRITE(*,*)'HONOR_1D_SPHERICAL_MOHO', HONOR_1D_SPHERICAL_MOHO
++  ! WRITE(*,*)'OCEANS', OCEANS
++  ! WRITE(*,*)'------------------------------------------------'
++  ! WRITE(*,*)'ROCEAN',ROCEAN
++  ! WRITE(*,*)'RMIDDLE_CRUST',RMIDDLE_CRUST
++  ! WRITE(*,*)'RMOHO',RMOHO
++  ! WRITE(*,*)'R80',R80
++  ! WRITE(*,*)'R120',R120
++  ! WRITE(*,*)'R220',R220
++  ! WRITE(*,*)'R400',R400
++  ! WRITE(*,*)'R600',R600
++  ! WRITE(*,*)'R670',R670
++  ! WRITE(*,*)'R771',R771
++  ! WRITE(*,*)'RMOHO_FICTITIOUS_IN_MESHER',RMOHO_FICTITIOUS_IN_MESHER
++  ! WRITE(*,*)'R80_FICTITIOUS_IN_MESHER',R80_FICTITIOUS_IN_MESHER
++  ! WRITE(*,*)'================================================='
+   ! ----------- end mofication <FM> -----------------------
+ 
+   ! sets time step size and number of layers
