@@ -2,7 +2,7 @@
 #SBATCH --job-name comp_solv
 #SBATCH --time=30:00
 #SBATCH --mail-type=all
-#SBATCH --mail-user=utpalkumar@berkeley.edu
+#SBATCH --mail-user=mail@berkeley.edu
 #SBATCH --mail-type=BEGIN,END,ERROR
 #SBATCH -C cpu
 #SBATCH --qos=debug
